@@ -3,22 +3,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context="com.km.livewallpaperwaterfall.MainActivity" >
+    tools:context="com.km.waterfallLWP.MainActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/ui_water_fall_bg_top"
+        android:orientation="vertical"
         android:gravity="center" >
 
+        <ImageView
+            android:id="@+id/btn_choose_wallpaper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:onClick="onClickChooseWallpaper"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/choose_wallpaper_selector"
+            />
+        <ImageView
+            android:id="@+id/btn_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:onClick="onClickHelp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/help_selector"
+            />
         <ImageView
             android:id="@+id/btn_set_wallpaper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center"
             android:clickable="true"
-            android:src="@drawable/ui_water_fall_set_button"
-            android:text="@string/title_button_set_wallpaper" />
+            android:onClick="onClickSetWallpaper"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/set_wallpaper_selector"
+             />
     </LinearLayout>
 
 </RelativeLayout>

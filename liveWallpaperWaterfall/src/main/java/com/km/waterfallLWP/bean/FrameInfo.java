@@ -1,5 +1,7 @@
-package com.km.livewallpaperwaterfall.bean;
+package com.km.waterfallLWP.bean;
 
+
+import android.graphics.Bitmap;
 
 /**
  * 
@@ -8,6 +10,7 @@ package com.km.livewallpaperwaterfall.bean;
  */
 public class FrameInfo {
 	private int frameResourceId;
+    private Bitmap mBitmap;
 
 	public int getFrameResourceId() {
 		return frameResourceId;
@@ -16,5 +19,13 @@ public class FrameInfo {
 	public void setFrameResourceId(int frameResourceId) {
 		this.frameResourceId = frameResourceId;
 	}
+
+    public Bitmap getBitmap() { return  mBitmap;}
+
+    public void setBitmap(Bitmap bitmap) {
+
+        mBitmap = bitmap;
+
+    }
 
 }

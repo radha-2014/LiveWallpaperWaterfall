@@ -1,4 +1,4 @@
-package com.km.livewallpaperwaterfall.bean;
+package com.km.waterfallLWP.bean;
 
 import java.util.List;
 
@@ -7,6 +7,8 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.km.waterfallLWP.utils.AppConstant;
 
 /*
  * Custom adapter for ViewPager, it use in ViewPagerActivity.java
@@ -32,7 +34,12 @@ public class AdapterPager extends PagerAdapter {
 	@Override
 	public Object instantiateItem(View collection, final int pos) {
 		final ImageView imageViewBackground = new ImageView(mContext);
-		imageViewBackground.setImageResource(frameInfoList.get(pos).getFrameResourceId());
+        if(AppConstant.isLocalImage) {
+            imageViewBackground.setImageResource(frameInfoList.get(pos).getFrameResourceId());
+        } else {
+            imageViewBackground.setImageBitmap(frameInfoList.get(pos).getBitmap());
+        }
+
 		((ViewPager) collection).addView(imageViewBackground);
 		return imageViewBackground;
 		

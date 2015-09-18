@@ -1,5 +1,10 @@
 
-package com.km.livewallpaperwaterfall.service;
+package com.km.waterfallLWP.service;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.opengl.GLUtils;
+import android.util.Log;
 
 import java.lang.ref.WeakReference;
 import java.nio.ByteBuffer;
@@ -8,21 +13,16 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.opengl.GLUtils;
-import android.util.Log;
-
 
 public class TextureBase {
 	
 	private WeakReference<Bitmap> mBitmap;
 	private FloatBuffer vertexBuffer;	// buffer holding the vertices
 	private float vertices[] = {
-			-1.0f, -1.0f,  0.0f,		// V1 - bottom left
-			-1.0f,  1.0f,  0.0f,		// V2 - top left
-			 1.0f, -1.0f,  0.0f,		// V3 - bottom right
-			 1.0f,  1.0f,  0.0f			// V4 - top right
+			-1.0f, -1.5f,  0.0f,		// V1 - bottom left
+			-1.0f,  1.5f,  0.0f,		// V2 - top left
+			 0.8f, -1.5f,  0.0f,		// V3 - bottom right
+			 0.8f,  1.5f,  0.0f			// V4 - top right
 	};
 
 	private FloatBuffer textureBuffer;	// buffer holding the texture coordinates
@@ -84,7 +84,8 @@ public class TextureBase {
 		
 	//	Log.d("loadGLTexture()", "Bitmap"+mBitmap);
 		
-		// Use Android GLUtils to specify a two-dimensional texture image from our bitmap 
+		// Use Android GLUtils to specify a two-dimensional texture image from our bitmap
+
 		GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, mBitmap.get(), 0);
 		
 	}

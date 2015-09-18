@@ -12,22 +12,7 @@
         <item>@drawable/waterfall6</item>
         <item>@drawable/waterfall7</item>
         <item>@drawable/waterfall8</item>
-        <item>@drawable/waterfall9</item>
-        <item>@drawable/waterfall10</item>
-    </array>
+       </array>
     
-      <array name="background_2">
-        <item>@drawable/waterfall11</item>
-        <item>@drawable/waterfall12</item>
-        <item>@drawable/waterfall13</item>
-        <item>@drawable/waterfall14</item>
-        <item>@drawable/waterfall15</item>
-        <item>@drawable/waterfall16</item>
-        <item>@drawable/waterfall17</item>
-        <item>@drawable/waterfall18</item>
-        <item>@drawable/waterfall19</item>
-        <item>@drawable/waterfall20</item>
-         <item>@drawable/waterfall21</item>
-    </array>
-    
+
 </resources>

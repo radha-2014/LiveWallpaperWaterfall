@@ -1,4 +1,4 @@
-package com.km.livewallpaperwaterfall.service;
+package com.km.waterfallLWP.service;
 
 /*
  * Copyright (C) 2008 The Android Open Source Project
@@ -34,13 +34,17 @@ import android.content.pm.ConfigurationInfo;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.service.wallpaper.WallpaperService;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.SurfaceHolder;
+import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.km.livewallpaperwaterfall.service.BaseConfigChooser.ComponentSizeChooser;
-import com.km.livewallpaperwaterfall.service.BaseConfigChooser.SimpleEGLConfigChooser;
-import com.km.livewallpaperwaterfall.utils.BackgroundUtil;
+import com.km.waterfallLWP.service.BaseConfigChooser.ComponentSizeChooser;
+import com.km.waterfallLWP.service.BaseConfigChooser.SimpleEGLConfigChooser;
+import com.km.waterfallLWP.utils.AppConstant;
+import com.km.waterfallLWP.utils.BackgroundUtil;
 
 // Original code provided by Robert Green
 // http://www.rbgrn.net/content/354-glsurfaceview-adapted-3d-live-wallpapers
@@ -62,6 +66,7 @@ public class GLWallpaperService extends WallpaperService {
 		private GLSurfaceView.GLWrapper mGLWrapper;
 		private int mDebugFlags;
 		private WallpaperRenderer mRenderer;
+        private Display mDisplay;
 
 		public GLEngine() {
 			super();
@@ -88,6 +93,9 @@ public class GLWallpaperService extends WallpaperService {
 		                (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 		            ConfigurationInfo configurationInfo = activityManager
 		                .getDeviceConfigurationInfo();
+            DisplayMetrics metrics = new DisplayMetrics();
+            mDisplay = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+            mDisplay.getMetrics(metrics);
 		            // Even though the latest emulator supports OpenGL ES 2.0,
 		            // it has a bug where it doesn't set the reqGlEsVersion so
 		            // the above check doesn't work. The below will detect if the
@@ -140,7 +148,10 @@ public class GLWallpaperService extends WallpaperService {
 		public void onSurfaceChanged(SurfaceHolder holder, int format,
 				int width, int height) {
 			// Log.d(TAG, "onSurfaceChanged()");
-			mGLThread.onWindowResize(width, height);
+            int rotation = mDisplay.getOrientation();
+            AppConstant.ROTATION = rotation;
+            BackgroundUtil.initializeImagesList(getApplicationContext());
+            mGLThread.onWindowResize(width, height);
 			super.onSurfaceChanged(holder, format, width, height);
 		}
 
@@ -469,7 +480,8 @@ class EglHelper {
 				mEglDisplay, mEglConfig, holder);
 
 		if (mEglSurface == null || mEglSurface == EGL10.EGL_NO_SURFACE) {
-			throw new RuntimeException("createWindowSurface failed");
+			//throw new RuntimeException("createWindowSurface failed");
+
 		}
 
 		/*
@@ -478,7 +490,7 @@ class EglHelper {
 		 */
 		if (!mEgl.eglMakeCurrent(mEglDisplay, mEglSurface, mEglSurface,
 				mEglContext)) {
-			throw new RuntimeException("eglMakeCurrent failed.");
+//			throw new RuntimeException("eglMakeCurrent failed.");
 		}
 
 		GL gl = mEglContext.getGL();
@@ -569,6 +581,7 @@ class GLThread extends Thread {
 	private ArrayList<Runnable> mEventQueue = new ArrayList<Runnable>();
 	private EglHelper mEglHelper;
 
+
 	GLThread(GLSurfaceView.Renderer renderer,
 			GLSurfaceView.EGLConfigChooser chooser,
 			GLSurfaceView.EGLContextFactory contextFactory,
@@ -590,6 +603,8 @@ class GLThread extends Thread {
 	@Override
 	public void run() {
 		setName("GLThread " + getId());
+
+
 		if (LOG_THREADS) {
 			Log.i("GLThread", "starting tid=" + getId());
 		}
@@ -834,6 +849,7 @@ class GLThread extends Thread {
 
 	public void onWindowResize(int w, int h) {
 		synchronized (sGLThreadManager) {
+
 			mWidth = w;
 			mHeight = h;
 			mSizeChanged = true;

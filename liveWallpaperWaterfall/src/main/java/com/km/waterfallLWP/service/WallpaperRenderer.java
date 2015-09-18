@@ -1,15 +1,7 @@
 /**
  * 
  */
-package com.km.livewallpaperwaterfall.service;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
-
-import com.km.livewallpaperwaterfall.utils.BackgroundUtil;
+package com.km.waterfallLWP.service;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,6 +10,14 @@ import android.opengl.GLU;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
+
+import com.km.waterfallLWP.utils.BackgroundUtil;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
 
 /**
  * @author impaler
@@ -64,7 +64,7 @@ public class WallpaperRenderer implements Renderer {
 		gl.glLoadIdentity();
 
 		// Drawing
-		gl.glTranslatef(0.0f, 0.0f, -2.0f); // move 5 units INTO the screen
+		gl.glTranslatef(0.0f, -0.0f, -2.9f); // move 5 units INTO the screen
 		
 		
 
@@ -100,13 +100,13 @@ public class WallpaperRenderer implements Renderer {
 			height = 1; // Making Height Equal One
 		}
 
-		gl.glViewport(0, 0, mScreenWidth, mScreenHeight); // Reset The Current Viewport
+		gl.glViewport(0, 0, width, height); // Reset The Current Viewport
 		gl.glMatrixMode(GL10.GL_PROJECTION); // Select The Projection Matrix
 		gl.glLoadIdentity(); // Reset The Projection Matrix
 
 		// Calculate The Aspect Ratio Of The Window
 		GLU.gluPerspective(gl, 45.0f, (float) width / (float) height, 0.1f,
-				100.0f);
+                100.0f);
 
 		gl.glMatrixMode(GL10.GL_MODELVIEW); // Select The Modelview Matrix
 		gl.glLoadIdentity(); // Reset The Modelview Matrix
